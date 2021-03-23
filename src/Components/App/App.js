@@ -24,6 +24,7 @@ class App extends React.Component{
     //Bind the function because it is modifying the states
     this.addTrack = this.addTrack.bind(this);
     this.removeTrack = this.removeTrack.bind(this);
+    this.updatePlaylistName = this.updatePlaylistName.bind(this);
   }
 
 
@@ -76,7 +77,12 @@ class App extends React.Component{
   }
 
 
-
+  // Change the playlist name
+  updatePlaylistName(name){
+    this.setState({
+      playlistName: name
+    });
+  }
 
   render(){
     return (
@@ -86,7 +92,7 @@ class App extends React.Component{
           <SearchBar/>
           <div className="App-playlist">
             <SearchResults isRemoval={false} onAdd={this.addTrack} searchResults={this.state.searchResults}/>
-            <Playlist isRemoval={true} onRemove={this.removeTrack} playlistName={this.state.playlistName} playlistTracks={this.state.playlistTracks}/>
+            <Playlist onNameChange={this.updatePlaylistName} isRemoval={true} onRemove={this.removeTrack} playlistName={this.state.playlistName} playlistTracks={this.state.playlistTracks}/>
           </div>
         </div>
     </div>
