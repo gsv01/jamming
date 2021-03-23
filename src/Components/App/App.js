@@ -23,6 +23,7 @@ class App extends React.Component{
 
     //Bind the function because it is modifying the states
     this.addTrack = this.addTrack.bind(this);
+    this.removeTrack = this.removeTrack.bind(this);
   }
 
 
@@ -56,6 +57,23 @@ class App extends React.Component{
   }
 
 
+  removeTrack(track){
+
+    //make a copy of the PlaylistTracks
+    let tempList = this.state.playlistTracks;
+
+    //Once we know the position lets remove it from our tempList
+    const index = tempList.indexOf(track);
+    if (index > -1) { //If it is negative then it is not found
+      tempList.splice(index, 1);
+    }
+
+    //Update the states
+    this.setState({
+      playlistTracks: tempList
+    });
+
+  }
 
 
 
@@ -68,7 +86,7 @@ class App extends React.Component{
           <SearchBar/>
           <div className="App-playlist">
             <SearchResults isRemoval={false} onAdd={this.addTrack} searchResults={this.state.searchResults}/>
-            <Playlist isRemoval={true} playlistName={this.state.playlistName} playlistTracks={this.state.playlistTracks}/>
+            <Playlist isRemoval={true} onRemove={this.removeTrack} playlistName={this.state.playlistName} playlistTracks={this.state.playlistTracks}/>
           </div>
         </div>
     </div>
