@@ -31,26 +31,33 @@ class App extends React.Component{
     // in Playlist and we are going to add it to the PlaylistTracks
     let currentId = track.id;
     let flag = 0;
-    let foundLocation = 0;
+
+
 
     for( let i=0 ; i < this.state.playlistTracks.length ; i++){
       if( currentId === this.state.playlistTracks[i].id ){
         flag = 1;
-        foundLocation = i;
         //Found
         break;
         //Exit loop
       }
     }
 
-    if(!flag){ //If found
+    if(flag === 0){ //If found
       let tempList = this.state.playlistTracks; //Make a copy
-      tempList.push(this.state.searchResults[foundLocation]); //Add to copy
-      this.state.PlaylistTracks = tempList; //Assign copy to state
+      tempList.push(track); //Add to copy
+      this.setState({
+        playlistTracks: tempList
+      });
+
     }
 
 
   }
+
+
+
+
 
 
   render(){
@@ -60,8 +67,8 @@ class App extends React.Component{
         <div className="App">
           <SearchBar/>
           <div className="App-playlist">
-            <SearchResults onAdd={this.addTrack} searchResults={this.state.searchResults}/>
-            <Playlist playlistName={this.state.playlistName} playlistTracks={this.state.playlistTracks}/>
+            <SearchResults isRemoval={false} onAdd={this.addTrack} searchResults={this.state.searchResults}/>
+            <Playlist isRemoval={true} playlistName={this.state.playlistName} playlistTracks={this.state.playlistTracks}/>
           </div>
         </div>
     </div>
